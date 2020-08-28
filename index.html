@@ -11,7 +11,7 @@
 	</head>
 	<body class="body">
 		<div class="header-sy">
-			<h4><i class="iconfont">&#xe6c8;</i><input type="text" name="" id="" value="" placeholder="搜素商品" /></h4>
+			<h4><i class="iconfont">&#xe6c8;</i><input type="text" name="" id="" value="" placeholder="搜素商品" /><button>登录</button></h4>
 		</div>
 		<div class="index-content">
 			<div class="banner-border">
@@ -75,36 +75,7 @@
 			<span>更多</span>
 		</div>
 		<div class="header-sy-nr3">
-			<ul>
-				<a href="产品详情.html">
-					<li>
-						<div class="spwai">
-							<img src="img/sytu8.png"/>
-							<div class="spxinxi">
-								<p>S-易路达超轻折叠双肩包</p>
-								<span>0金币+￥125</span>
-							</div>
-						</div>
-					</li>
-				</a>
-				<li>
-					<div class="spwai">
-						<img src="img/sytu6.png"/>
-						<div class="spxinxi">
-							<p>S-易路达超轻折叠双肩包</p>
-							<span>0金币+￥125</span>
-						</div>
-					</div>
-				</li>
-				<li>
-					<div class="spwai">
-						<img src="img/sytu7.png"/>
-						<div class="spxinxi">
-							<p>S-易路达超轻折叠双肩包</p>
-							<span>0金币+￥125</span>
-						</div>
-					</div>
-				</li>
+			<ul id="goods_list">
 			</ul>
 		</div>
 		<div style="height: 5em;"></div>
@@ -144,5 +115,33 @@
 				autoplay : true
 			})
 		</script>
+		<script src="js/jquery.min.js"></script>
+	<script>
+		$.ajax({
+
+				url:'http://api.1910.com/goods',
+				type: 'get',
+				dataType: 'json',
+				xhrFields: { withCredentials:true},
+			success: function(d)
+			{
+				console.log(d);
+				$.each(d.data.goods,function(i,item){
+					console.log(i + '--' + item.goods_name);
+					var node = '<li>' +
+							'<div class="spwai">' +
+							'<a href="/detail.html?id='+ item.goods_id +'"><img src="img/sytu8.png"/></a>' +
+							'<div class="spxinxi">' +
+							'<p><a href="">'+ item.goods_name +'</a></p>' +
+							'<span>￥'+item.shop_price+'</span>' +
+							'</div>' +
+							'</div>' +
+							'</li>';
+					$("#goods_list").append(node);
+				});
+
+			}
+		});
+	</script>
 	</body>
 </html>

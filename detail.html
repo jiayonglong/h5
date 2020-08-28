@@ -57,10 +57,11 @@
 			    <!-- Add Pagination -->
 			    <div class="swiper-pagination"></div>
 			  </div> 
-			
+			<div id	="detail_list">
+			<li v-for="detail in list">
 			<div class="cpxq-nr">
-				<p class="cpxq1">0金币+￥125.00</p>
-				<p class="cpxq2"><span>【生活区】</span>S-易路达超轻折叠双肩包</p>
+				<p class="cpxq1">0金币+￥{{detail.shop_price}}</p>
+				<p class="cpxq2"><span>【生活区】</span>S-{{detail.goods_desc}}</p>
 				<p class="cpxq3">运费：0.00元</p>
 			</div>
 			<div class="cpxq-nr">
@@ -68,6 +69,8 @@
 				<p class="cpxqnr">
 					S-易路达超轻折叠双肩包 超轻折叠双肩包 体  积小 展开实用面积大 果绿色 
 				</p>
+			</div>
+			</li>
 			</div>
 		</div>
 		
@@ -148,6 +151,23 @@
 				});
 				
 			});
+		</script>
+		<script src="/js/vue.js"></script>
+		<script src="/js/axios.min.js"></script>
+		<script>
+			new Vue({
+				el: '#detail_list',
+				data () {
+				return {
+					list: null
+				}
+			},
+			mounted () {
+				axios
+						.get('http://api2.1910.com/detail/test')
+						.then(response => (this.list = response.data))
+			}
+			})
 		</script>
 	</body>
 </html>
